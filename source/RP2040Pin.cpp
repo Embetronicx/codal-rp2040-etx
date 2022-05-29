@@ -192,7 +192,7 @@ REAL_TIME_FUNC
 int RP2040Pin::setDigitalValue(int value)
 {
     // Ensure we have a valid value.
-    value = ((value > 0) ? 0 : 1);
+    value = ((value > 0) ? 1 : 0);
 
     // Move into a Digital output state if necessary.
     if (!(status & IO_STATUS_DIGITAL_OUT))
