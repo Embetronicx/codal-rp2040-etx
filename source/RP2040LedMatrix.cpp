@@ -56,7 +56,12 @@ static void display_irq(uint16_t mask)
  */
 RP2040LEDMatrix::RP2040LEDMatrix(RP2040LowLevelTimer &displayTimer, const MatrixMap &map, uint16_t id, DisplayMode mode) : Display(map.width, map.height, id), matrixMap(map), timer(displayTimer)
 {
+    gpio_init(25);
+    //gpio_set_dir(25, GPIO_IN);
+    // return gpio_get(25);
 
+    gpio_set_dir(25, GPIO_OUT);
+    gpio_put(25, 1);
 }
 
 /**
