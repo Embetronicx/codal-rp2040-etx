@@ -31,6 +31,7 @@ DEALINGS IN THE SOFTWARE.
 #include "RP2040Pin.h"
 #include "CodalDmesg.h"
 #include "ErrorNo.h"
+#include "hardware/gpio.h"
 
 using namespace codal;
 
@@ -121,8 +122,8 @@ void RP2040LEDMatrix::render()
     // return gpio_get(25);
 
     //gpio_set_dir(25, GPIO_OUT);
-    //gpio_put(25, 1);
- sio_hw->gpio_set = 1<<25;
+    gpio_put(25, 1);
+ //sio_hw->gpio_set = 1<<25;
 }
 
 /**
