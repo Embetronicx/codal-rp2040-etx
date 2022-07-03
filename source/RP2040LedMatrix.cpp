@@ -116,12 +116,13 @@ void RP2040LEDMatrix::disable()
  */
 void RP2040LEDMatrix::render()
 {
-    gpio_init(25);
+    //gpio_init(25);
     // gpio_set_dir(25, GPIO_IN);
     // return gpio_get(25);
 
-    gpio_set_dir(25, GPIO_OUT);
-    gpio_put(25, 1);
+    //gpio_set_dir(25, GPIO_OUT);
+    //gpio_put(25, 1);
+ sio_hw->gpio_set = 1<<25;
 }
 
 /**
