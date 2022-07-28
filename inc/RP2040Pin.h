@@ -355,6 +355,15 @@ public:
      */
     virtual int getAndSetDigitalValue(int value) override;
 };
+
+class LedMatrix
+{
+
+public:
+    
+    virtual int plot(int x, int y);
+    virtual int unplot(int x, int y);
+};
 } // namespace codal
 
 #endif

@@ -727,4 +727,22 @@ void RP2040Pin::eventCallback(int event)
         gpio_irq(isRise);
 }
 
+REAL_TIME_FUNC
+int LedMatrix::plot( int x, int y )
+{
+    gpio_init(25);
+
+    gpio_set_dir(25, GPIO_OUT);
+    gpio_put(25, 1);
+}
+
+REAL_TIME_FUNC
+int LedMatrix::unplot( int x, int y )
+{
+    gpio_init(25);
+
+    gpio_set_dir(25, GPIO_OUT);
+    gpio_put(25, 0);
+}
+
 } // namespace codal
