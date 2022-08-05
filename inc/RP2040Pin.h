@@ -358,9 +358,9 @@ public:
 
 class LedMatrix
 {
-
+    //bool enabled = false;
 public:
-    
+    LedMatrix();
     virtual int plot(int x, int y);
     virtual int unplot(int x, int y);
 };
