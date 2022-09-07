@@ -188,27 +188,6 @@ void RP2040Pin::disconnect()
  * P0.setDigitalValue(1); // P0 is now HI
  * @endcode
  */
-REAL_TIME_FUNC
-int RP2040Pin::setDigitalValue(int value)
-{
-    // Ensure we have a valid value.
-    value = ((value > 0) ? 1 : 0);
-
-    // Move into a Digital output state if necessary.
-    if (!(status & IO_STATUS_DIGITAL_OUT))
-    {
-        disconnect();
-        gpio_init(name);
-        // set first to avoid glitch when setting directions
-        gpio_put(name, value);
-        gpio_set_dir(name, GPIO_OUT);
-        status |= IO_STATUS_DIGITAL_OUT;
-    }
-
-    gpio_put(name, value);
-
-    return DEVICE_OK;
-}
 
 /**
  * Configures this IO pin as a digital input (if necessary) and tests its current value.
@@ -727,33 +706,73 @@ void RP2040Pin::eventCallback(int event)
         gpio_irq(isRise);
 }
 
+int ROW[5] = { 0, 1, 2, 3, 4 };
+int COL[5] = { 5, 6, 7, 8, 9 };
+
 /**
  * Constructor.
  */
+#if 1
 LedMatrix::LedMatrix()
 {
     //this->enabled = false;
 
-    gpio_set_irq_enabled(25, GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, false);
-    gpio_init(25);
+    //P0 = new RP2040Pin(DEVICE_ID_IO_P0 + 0, 0, PIN_CAPABILITY_DIGITAL); //Create Digital pin
+    //P5 = new RP2040Pin(DEVICE_ID_IO_P0 + 5, 5, PIN_CAPABILITY_DIGITAL); //Create Digital pin
+
+    //gpio_set_level(0, 1);
+
+#if 0
+    gpio_set_irq_enabled(ROW[0], GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, false);
+    gpio_init(ROW[0]);
     // set first to avoid glitch when setting directions
-    gpio_put(25, 1);
-    gpio_set_dir(25, GPIO_OUT);
-    gpio_put(25, 0);
+    gpio_put(ROW[0], 1);
+    gpio_set_dir(ROW[0], GPIO_OUT);
+    gpio_put(ROW[0], 0);
+
+    gpio_set_irq_enabled(COL[0], GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, false);
+    gpio_init(COL[0]);
+    // set first to avoid glitch when setting directions
+    gpio_put(COL[0], 1);
+    gpio_set_dir(COL[0], GPIO_OUT);
+    gpio_put(COL[0], 0);
+#endif
 }
+#endif
 
 REAL_TIME_FUNC
 int LedMatrix::plot( int x, int y )
 {
-    gpio_put(25, 1);
+    //DevicePin(DEVICE_ID_IO_P0 + id, (PinName)id,
+    //                      isAnalog ? PIN_CAPABILITY_AD : PIN_CAPABILITY_DIGITAL);
+    //test.slr();
 
+    //P0.setDigitalValue(1);
+    //P5.setDigitalValue(0);
+
+    //RP2040Pin *P0 = new RP2040Pin(DEVICE_ID_IO_P0 + 0, 0, PIN_CAPABILITY_DIGITAL); //Create Digital pin
+    //P0->setDigitalValue(1);
+    //RP2040Pin *P5 = new RP2040Pin(DEVICE_ID_IO_P0 + 5, 5, PIN_CAPABILITY_DIGITAL); //Create Digital pin
+    //P5->setDigitalValue(0);
+#if 0
+    if( ( x < 5 ) || ( y < 5 ) )
+    {
+        gpio_put(ROW[x], 1);
+        //auto led = lookupPin(ROW[x]);
+        //led->setDigitalValue(1);
+
+        gpio_put(COL[y], 0);
+        //led = lookupPin(COL[y]);
+        //led->setDigitalValue(0);
+    }
+#endif
     return 0;
 }
 
 REAL_TIME_FUNC
 int LedMatrix::unplot( int x, int y )
 {
-    gpio_put(25, 0);
+    //gpio_put(25, 0);
 
     return 0;
 }
