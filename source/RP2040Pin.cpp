@@ -733,70 +733,26 @@ int COL[5] = { 5, 6, 7, 8, 9 };
 /**
  * Constructor.
  */
-#if 1
 ETX_LedMatrix::ETX_LedMatrix()
 {
-    //this->enabled = false;
-
-    //P0 = new RP2040Pin(DEVICE_ID_IO_P0 + 0, 0, PIN_CAPABILITY_DIGITAL); //Create Digital pin
-    //P5 = new RP2040Pin(DEVICE_ID_IO_P0 + 5, 5, PIN_CAPABILITY_DIGITAL); //Create Digital pin
-
-    //gpio_set_level(0, 1);
-
-#if 0
-    gpio_set_irq_enabled(ROW[0], GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, false);
-    gpio_init(ROW[0]);
-    // set first to avoid glitch when setting directions
-    gpio_put(ROW[0], 1);
-    gpio_set_dir(ROW[0], GPIO_OUT);
-    gpio_put(ROW[0], 0);
-
-    gpio_set_irq_enabled(COL[0], GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL, false);
-    gpio_init(COL[0]);
-    // set first to avoid glitch when setting directions
-    gpio_put(COL[0], 1);
-    gpio_set_dir(COL[0], GPIO_OUT);
-    gpio_put(COL[0], 0);
-#endif
+    
 }
-#endif
 
 REAL_TIME_FUNC
 int ETX_LedMatrix::etx_plot( RP2040Pin &x, RP2040Pin &y )
 {
     x.setDigitalValue(1);
     y.setDigitalValue(0);
-    //DevicePin(DEVICE_ID_IO_P0 + id, (PinName)id,
-    //                      isAnalog ? PIN_CAPABILITY_AD : PIN_CAPABILITY_DIGITAL);
+    
     //test.slr();
-
-    //P0.setDigitalValue(1);
-    //P5.setDigitalValue(0);
-
-    //RP2040Pin *P0 = new RP2040Pin(DEVICE_ID_IO_P0 + 0, 0, PIN_CAPABILITY_DIGITAL); //Create Digital pin
-    //P0->setDigitalValue(1);
-    //RP2040Pin *P5 = new RP2040Pin(DEVICE_ID_IO_P0 + 5, 5, PIN_CAPABILITY_DIGITAL); //Create Digital pin
-    //P5->setDigitalValue(0);
-#if 0
-    if( ( x < 5 ) || ( y < 5 ) )
-    {
-        gpio_put(ROW[x], 1);
-        //auto led = lookupPin(ROW[x]);
-        //led->setDigitalValue(1);
-
-        gpio_put(COL[y], 0);
-        //led = lookupPin(COL[y]);
-        //led->setDigitalValue(0);
-    }
-#endif
     return 0;
 }
 
 REAL_TIME_FUNC
-int ETX_LedMatrix::etx_unplot( int x, int y )
+int ETX_LedMatrix::etx_unplot( RP2040Pin &x, RP2040Pin &y )
 {
-    //gpio_put(25, 0);
-
+    x.setDigitalValue(0);
+    y.setDigitalValue(1);
     return 0;
 }
 

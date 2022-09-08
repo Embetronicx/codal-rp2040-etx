@@ -360,11 +360,9 @@ class ETX_LedMatrix : CodalComponent
 {
     //bool enabled = false;
 public:
-    //RP2040Pin P0 = RP2040Pin(DEVICE_ID_IO_P0 + 0, 0, PIN_CAPABILITY_DIGITAL);
-    //RP2040Pin P5 = RP2040Pin(DEVICE_ID_IO_P0 + 5, 5, PIN_CAPABILITY_DIGITAL);
     ETX_LedMatrix();
     virtual int etx_plot(RP2040Pin &x, RP2040Pin &y);
-    virtual int etx_unplot(int x, int y);
+    virtual int etx_unplot(RP2040Pin &x, RP2040Pin &y);
 };
 } // namespace codal
 
