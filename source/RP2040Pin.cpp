@@ -726,34 +726,4 @@ void RP2040Pin::eventCallback(int event)
     if (status & IO_STATUS_INTERRUPT_ON_EDGE && gpio_irq)
         gpio_irq(isRise);
 }
-
-int ROW[5] = { 0, 1, 2, 3, 4 };
-int COL[5] = { 5, 6, 7, 8, 9 };
-
-/**
- * Constructor.
- */
-ETX_LedMatrix::ETX_LedMatrix()
-{
-    
-}
-
-REAL_TIME_FUNC
-int ETX_LedMatrix::etx_plot( RP2040Pin &x, RP2040Pin &y )
-{
-    x.setDigitalValue(1);
-    y.setDigitalValue(0);
-    
-    //test.slr();
-    return 0;
-}
-
-REAL_TIME_FUNC
-int ETX_LedMatrix::etx_unplot( RP2040Pin &x, RP2040Pin &y )
-{
-    x.setDigitalValue(0);
-    y.setDigitalValue(1);
-    return 0;
-}
-
 } // namespace codal

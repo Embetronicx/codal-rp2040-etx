@@ -355,15 +355,6 @@ public:
      */
     virtual int getAndSetDigitalValue(int value) override;
 };
-
-class ETX_LedMatrix : CodalComponent
-{
-    //bool enabled = false;
-public:
-    ETX_LedMatrix();
-    virtual int etx_plot(RP2040Pin &x, RP2040Pin &y);
-    virtual int etx_unplot(RP2040Pin &x, RP2040Pin &y);
-};
 } // namespace codal
 
 #endif
