@@ -117,6 +117,7 @@ public:
      * P0.setDigitalValue(1); // P0 is now HI
      * @endcode
      */
+    virtual int setDigitalValue(int value) override;
 
     /**
      * Configures this IO pin as a digital input (if necessary) and tests its current value.
@@ -355,15 +356,15 @@ public:
     virtual int getAndSetDigitalValue(int value) override;
 };
 
-class LedMatrix
+class ETX_LedMatrix : CodalComponent
 {
     //bool enabled = false;
 public:
     //RP2040Pin P0 = RP2040Pin(DEVICE_ID_IO_P0 + 0, 0, PIN_CAPABILITY_DIGITAL);
     //RP2040Pin P5 = RP2040Pin(DEVICE_ID_IO_P0 + 5, 5, PIN_CAPABILITY_DIGITAL);
-    LedMatrix();
-    virtual int plot(int x, int y);
-    virtual int unplot(int x, int y);
+    ETX_LedMatrix();
+    virtual int etx_plot(RP2040Pin &x, RP2040Pin &y);
+    virtual int etx_unplot(int x, int y);
 };
 } // namespace codal
 

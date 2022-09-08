@@ -188,6 +188,27 @@ void RP2040Pin::disconnect()
  * P0.setDigitalValue(1); // P0 is now HI
  * @endcode
  */
+REAL_TIME_FUNC
+int RP2040Pin::setDigitalValue(int value)
+{
+    // Ensure we have a valid value.
+    value = ((value > 0) ? 1 : 0);
+
+    // Move into a Digital output state if necessary.
+    if (!(status & IO_STATUS_DIGITAL_OUT))
+    {
+        disconnect();
+        gpio_init(name);
+        // set first to avoid glitch when setting directions
+        gpio_put(name, value);
+        gpio_set_dir(name, GPIO_OUT);
+        status |= IO_STATUS_DIGITAL_OUT;
+    }
+
+    gpio_put(name, value);
+
+    return DEVICE_OK;
+}
 
 /**
  * Configures this IO pin as a digital input (if necessary) and tests its current value.
@@ -713,7 +734,7 @@ int COL[5] = { 5, 6, 7, 8, 9 };
  * Constructor.
  */
 #if 1
-LedMatrix::LedMatrix()
+ETX_LedMatrix::ETX_LedMatrix()
 {
     //this->enabled = false;
 
@@ -741,8 +762,10 @@ LedMatrix::LedMatrix()
 #endif
 
 REAL_TIME_FUNC
-int LedMatrix::plot( int x, int y )
+int ETX_LedMatrix::etx_plot( RP2040Pin &x, RP2040Pin &y )
 {
+    x.setDigitalValue(1);
+    y.setDigitalValue(0);
     //DevicePin(DEVICE_ID_IO_P0 + id, (PinName)id,
     //                      isAnalog ? PIN_CAPABILITY_AD : PIN_CAPABILITY_DIGITAL);
     //test.slr();
@@ -770,7 +793,7 @@ int LedMatrix::plot( int x, int y )
 }
 
 REAL_TIME_FUNC
-int LedMatrix::unplot( int x, int y )
+int ETX_LedMatrix::etx_unplot( int x, int y )
 {
     //gpio_put(25, 0);
 
