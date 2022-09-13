@@ -12,29 +12,48 @@
 
 namespace codal
 {
+    RP2040Pin *row[5];
+    RP2040Pin *col[5];
+
     /**
      * Constructor.
      */
-    ETX_LedMatrix::ETX_LedMatrix()
+    ETX_LedMatrix::ETX_LedMatrix( RP2040Pin &r0,
+                                  RP2040Pin &r1,
+                                  RP2040Pin &r2,
+                                  RP2040Pin &r3,
+                                  RP2040Pin &r4,
+                                  RP2040Pin &c0,
+                                  RP2040Pin &c1,
+                                  RP2040Pin &c2,
+                                  RP2040Pin &c3,
+                                  RP2040Pin &c4 )
     {
-        
+        row[0] = &r0;
+        row[1] = &r1;
+        row[2] = &r2;
+        row[3] = &r3;
+        row[4] = &r4;
+        col[0] = &c0;
+        col[1] = &c1;
+        col[2] = &c2;
+        col[3] = &c3;
+        col[4] = &c4;
     }
 
     REAL_TIME_FUNC
-    int ETX_LedMatrix::etx_plot( RP2040Pin &x, RP2040Pin &y )
+    int ETX_LedMatrix::etx_plot( int x, int y )
     {
-        x.setDigitalValue(1);
-        y.setDigitalValue(0);
-        
-        //test.slr();
+        row[x]->setDigitalValue(1);
+        col[y]->setDigitalValue(0);
         return 0;
     }
 
     REAL_TIME_FUNC
-    int ETX_LedMatrix::etx_unplot( RP2040Pin &x, RP2040Pin &y )
+    int ETX_LedMatrix::etx_unplot( int x, int y )
     {
-        x.setDigitalValue(0);
-        y.setDigitalValue(1);
+        row[x]->setDigitalValue(0);
+        col[y]->setDigitalValue(1);
         return 0;
     }
 

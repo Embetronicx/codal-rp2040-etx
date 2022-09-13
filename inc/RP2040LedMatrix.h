@@ -9,9 +9,18 @@ namespace codal
     {
         //bool enabled = false;
     public:
-        ETX_LedMatrix();
-        virtual int etx_plot(RP2040Pin &x, RP2040Pin &y);
-        virtual int etx_unplot(RP2040Pin &x, RP2040Pin &y);
+        ETX_LedMatrix(  RP2040Pin &r0,
+                        RP2040Pin &r1,
+                        RP2040Pin &r2,
+                        RP2040Pin &r3,
+                        RP2040Pin &r4,
+                        RP2040Pin &c0,
+                        RP2040Pin &c1,
+                        RP2040Pin &c2,
+                        RP2040Pin &c3,
+                        RP2040Pin &c4 );
+        virtual int etx_plot(int x, int y);
+        virtual int etx_unplot(int x, int y);
     };
 } // namespace codal
 
